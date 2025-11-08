@@ -28,13 +28,20 @@ pipeline {
         }
 
         stage('Push to Docker Hub') {
-            steps {
-                sh '''
-                    echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USER" --password-stdin
-                    docker push $DOCKERHUB_USER/$IMAGE_NAME:latest
-                '''
-            }
+    steps {
+        withCredentials([usernamePassword(
+            credentialsId: 'dockerhub',
+            usernameVariable: 'DOCKERHUB_USER',
+            passwordVariable: 'DOCKERHUB_PASS'
+        )]) {
+            sh '''
+                echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USER" --password-stdin
+                docker push $DOCKERHUB_USER/$IMAGE_NAME:latest
+            '''
         }
+    }
+}
+
 
         stage('Deploy Container') {
             steps {
