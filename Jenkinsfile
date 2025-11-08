@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3.9.9-eclipse-temurin-17'
-            args '-v /root/.m2:/root/.m2'
-        }
-    }
+    agent any  // <-- run on Jenkins host instead of inside Maven Docker container
 
     environment {
         DOCKERHUB_USER = 'thrinadhprasadapu'
