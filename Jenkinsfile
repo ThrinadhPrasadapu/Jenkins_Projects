@@ -7,7 +7,7 @@ pipeline {
     }
 
     environment {
-        DOCKERHUB_USER = 'your-dockerhub-username'
+        DOCKERHUB_USER = 'thrinadhprasadapu'
         IMAGE_NAME = 'javawebapp'
     }
 
